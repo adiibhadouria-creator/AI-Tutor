@@ -1,4 +1,4 @@
-# ProfAI v2 – Cloudflare Native AI Tutor
+# AI Tutor – Cloudflare Native AI Tutor
 
 ## **Project Description**
 
