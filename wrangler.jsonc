@@ -1,0 +1,39 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "profai",
+  "account_id": "ec6721b8cf1cc6b9d72f33f164169b4a",
+  "compatibility_date": "2026-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".vinext/static",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "observability": { "enabled": true },
+  "vars": {
+    "APP_ORIGIN": "https://profai.apal895.workers.dev"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "profai_db",
+      "database_id": "4a422b46-d09e-4bf3-83e1-ab5c35b35d93",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "kv_namespaces": [
+    { "binding": "KV", "id": "f61d6fa9d83f4fb6bfa6cd849e7b2442" }
+  ],
+  "r2_buckets": [
+    { "binding": "R2", "bucket_name": "profai-uploads" }
+  ],
+  "ai": { "binding": "AI" },
+  "browser": { "binding": "BROWSER" },
+  "ratelimits": [
+    { "name": "RATE_LIMITER_AUTH", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } },
+    { "name": "RATE_LIMITER_SIGNUP", "namespace_id": "1002", "simple": { "limit": 2, "period": 60 } },
+    { "name": "RATE_LIMITER_CHAT",  "namespace_id": "1003", "simple": { "limit": 60, "period": 60 } },
+    { "name": "RATE_LIMITER_UPLOAD","namespace_id": "1004", "simple": { "limit": 6, "period": 60 } },
+    { "name": "RATE_LIMITER_PDF",   "namespace_id": "1005", "simple": { "limit": 2, "period": 60 } }
+  ]
+}

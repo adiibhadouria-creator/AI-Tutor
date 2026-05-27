@@ -1,0 +1,88 @@
+@import "katex/dist/katex.min.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme: tweakcn — cmie97f2b000704l27r9g1p11 (deep indigo) */
+@layer base {
+  :root {
+    --background: oklch(0.9851 0 0);
+    --foreground: oklch(0 0 0);
+    --card: oklch(1 0 267.51);
+    --card-foreground: oklch(0.2103 0 267.51);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0 0 0);
+    --primary: oklch(0.5144 0.1605 267.44);
+    --primary-foreground: oklch(0.97 0.014 254.604);
+    --secondary: oklch(0.94 0 0);
+    --secondary-foreground: oklch(0.25 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.44 0 0);
+    --accent: oklch(0.9214 0.0248 257.65);
+    --accent-foreground: oklch(0.2571 0.1161 272.24);
+    --destructive: oklch(0.58 0.22 27);
+    --destructive-foreground: oklch(0.97 0.014 254.604);
+    --border: oklch(0.92 0 0);
+    --input: oklch(0.94 0 0);
+    --ring: oklch(0.5144 0.1605 267.44);
+    --radius: 0.5rem;
+    --sidebar: oklch(1 0 267.51);
+    --sidebar-foreground: oklch(0 0 0);
+    --sidebar-primary: oklch(0.5144 0.1605 267.44);
+    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+    --sidebar-accent: oklch(0.9214 0.0248 257.65);
+    --sidebar-accent-foreground: oklch(0.2571 0.1161 272.24);
+    --sidebar-border: oklch(0.92 0 0);
+    --sidebar-ring: oklch(0.5144 0.1605 267.44);
+  }
+  .dark {
+    --background: oklch(0 0 0);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.2103 0 267.51);
+    --card-foreground: oklch(0.9461 0 0);
+    --popover: oklch(0.2103 0 267.51);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.5144 0.1605 267.44);
+    --primary-foreground: oklch(0.97 0.014 254.604);
+    --secondary: oklch(0.25 0 0);
+    --secondary-foreground: oklch(0.94 0 0);
+    --muted: oklch(0.23 0 0);
+    --muted-foreground: oklch(0.72 0 0);
+    --accent: oklch(0.32 0 0);
+    --accent-foreground: oklch(0.9214 0.0248 257.65);
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(0.97 0.014 254.604);
+    --border: oklch(0.26 0 0);
+    --input: oklch(0.32 0 0);
+    --ring: oklch(0.5144 0.1605 267.44);
+    --sidebar: oklch(0.2103 0 267.51);
+    --sidebar-foreground: oklch(1 0 0);
+    --sidebar-primary: oklch(0.5144 0.1605 267.44);
+    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+    --sidebar-accent: oklch(0.32 0 0);
+    --sidebar-accent-foreground: oklch(0.9214 0.0248 257.65);
+    --sidebar-border: oklch(0.26 0 0);
+    --sidebar-ring: oklch(0.5144 0.1605 267.44);
+  }
+}
+
+@layer base {
+  html, body { font-family: theme(fontFamily.sans); }
+  body { @apply bg-background text-foreground antialiased; }
+  * { border-color: hsl(var(--border) / 1); }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+.markdown-content p { @apply mb-3 last:mb-0; }
+.markdown-content ul { @apply list-disc pl-6 mb-3; }
+.markdown-content ol { @apply list-decimal pl-6 mb-3; }
+.markdown-content li { @apply mb-1; }
+.markdown-content pre { @apply bg-muted p-3 rounded-lg overflow-x-auto mb-3; }
+.markdown-content code { @apply bg-muted px-1 rounded text-sm; }
+.markdown-content pre code { @apply bg-transparent p-0; }
+.markdown-content blockquote { @apply border-l-4 border-border pl-4 text-muted-foreground mb-3; }
+.markdown-content .katex-display { @apply my-3 overflow-x-auto; }

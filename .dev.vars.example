@@ -1,0 +1,16 @@
+# Copy to .dev.vars for local dev. Never commit .dev.vars.
+
+# AES-GCM key for at-rest message encryption. 32 bytes, base64.
+# Generate with: openssl rand -base64 32
+CONTENT_KEY=
+
+# Salt used when hashing client IPs into ip_hash. Any random string.
+IP_HASH_SALT=
+
+# Cloudflare Turnstile (optional in dev — leave empty to bypass).
+TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
+
+# AI Gateway: Google AI Studio API key for Gemini 3 Flash routed via env.AI.
+# Required for tutoring/assessment. Stored as Worker secret in prod.
+AI_GATEWAY_GOOGLE_API_KEY=
