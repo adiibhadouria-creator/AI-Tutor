@@ -1,70 +1,298 @@
-# ProfAI v2 — Cloudflare-native AI tutor
+# ProfAI v2 – Cloudflare Native AI Tutor
 
-Adaptive AI tutor: tell it a topic, take a 5-question diagnostic, then learn through a Socratic chat with auto-generated diagrams. Multi-chat history (ChatGPT-style sidebar), saved reports with PDF export, progress dashboard, free signup with email + password.
+## **Project Description**
 
-## Stack
+ProfAI v2 is an adaptive AI-powered tutoring platform designed to provide personalized learning experiences for students. The system allows users to enter any topic, attempt a diagnostic quiz, and continue learning through an interactive Socratic-style AI chat interface.
 
-- **Frontend:** [vinext](https://github.com/cloudflare/vinext) (Next.js API surface on Vite), React 19, Tailwind 3, shadcn/ui
-- **Backend:** Same Worker via vinext route handlers (`app/api/*`)
-- **DB:** Cloudflare D1 (SQLite) via [drizzle-orm](https://orm.drizzle.team)
-- **Storage:** R2 for uploaded images, generated diagrams, and PDF reports
-- **AI:** `env.AI.run("google/gemini-3-flash", ...)` for tutoring, `@cf/black-forest-labs/flux-1-schnell` for diagrams
-- **PDF:** Cloudflare Browser Rendering (`@cloudflare/puppeteer`)
-- **Auth:** email + password, scrypt hashing (`@noble/hashes`), D1-backed session tokens, `__Host-` cookie, sliding 30-day TTL
-- **Crypto:** AES-GCM at-rest encryption for chat message content (key derived via HKDF from `CONTENT_KEY` Worker secret)
+The project includes features such as AI-generated diagrams, progress tracking dashboards, PDF report generation, multi-chat history management, secure authentication, and cloud-based storage. The application is built completely on Cloudflare’s serverless ecosystem for scalability, security, and performance.
 
-## Local development
+---
 
-Prereqs: Node.js 20+, a Cloudflare account, `wrangler` CLI logged in.
+# **Technology Stack and Tools Used**
+
+## **Frontend**
+
+* React 19
+* Vinext (Next.js API surface on Vite)
+* Tailwind CSS v3
+* shadcn/ui
+
+## **Backend**
+
+* Cloudflare Workers
+* Vinext Route Handlers (`app/api/*`)
+
+## **Database**
+
+* Cloudflare D1 (SQLite)
+* Drizzle ORM
+
+## **Cloud Storage**
+
+* Cloudflare R2
+
+## **Artificial Intelligence**
+
+* Google Gemini 3 Flash (`env.AI.run`)
+* Cloudflare AI Models
+* Black Forest Labs Flux-1-Schnell (AI Diagram Generation)
+
+## **Authentication & Security**
+
+* Email and Password Authentication
+* Scrypt Password Hashing
+* AES-GCM Encryption
+* HKDF Key Derivation
+* D1-backed Session Tokens
+* Secure `__Host-` Cookies
+
+## **PDF Generation**
+
+* Cloudflare Browser Rendering
+* Puppeteer (`@cloudflare/puppeteer`)
+
+## **Development & Deployment Tools**
+
+* Node.js
+* Wrangler CLI
+* npm
+
+---
+
+# **Features and Functionalities Implemented**
+
+## **User Authentication**
+
+* User signup and login using email and password
+* Secure password hashing using scrypt
+* Session-based authentication with secure cookies
+
+## **Adaptive AI Tutoring**
+
+* Topic-based intelligent tutoring
+* 5-question diagnostic assessment
+* Personalized learning flow based on performance
+* Socratic teaching methodology
+
+## **AI Chat System**
+
+* Multi-chat support with ChatGPT-style sidebar
+* Real-time AI interaction
+* Persistent chat history storage
+
+## **AI Diagram Generation**
+
+* Automatic generation of educational diagrams and visual explanations using AI
+
+## **Dashboard and Progress Tracking**
+
+* Student learning progress dashboard
+* Performance analysis and report generation
+
+## **PDF Export System**
+
+* Generate downloadable PDF reports of learning sessions and progress
+
+## **Cloud Storage Integration**
+
+* R2 storage for:
+
+  * Uploaded files
+  * Generated diagrams
+  * PDF reports
+
+## **Security Features**
+
+* AES-GCM encryption for stored chat content
+* Secure session management
+* Sliding 30-day authentication session expiry
+
+## **Scalable Cloud Architecture**
+
+* Fully serverless architecture using Cloudflare ecosystem
+* Optimized for scalability and performance
+
+---
+
+# **Installation and Execution Steps**
+
+## **Prerequisites**
+
+Before running the project, install the following:
+
+* Node.js 20+
+* npm
+* Cloudflare Account
+* Wrangler CLI
+
+Login to Wrangler:
+
+```bash
+wrangler login
+```
+
+---
+
+## **Step 1: Clone the Repository**
+
+```bash
+git clone <repository-url>
+cd profai-v2
+```
+
+---
+
+## **Step 2: Configure Environment Variables**
+
+Create environment variables file:
 
 ```bash
 cp .dev.vars.example .dev.vars
-# Fill in the placeholders:
-#   CONTENT_KEY      = openssl rand -base64 32
-#   IP_HASH_SALT     = any random string
-#   AI_GATEWAY_GOOGLE_API_KEY = your Google AI Studio API key
-
-npm install
-npx wrangler d1 create profai_db                 # paste UUID into wrangler.jsonc
-npx wrangler kv namespace create profai_kv       # paste id into wrangler.jsonc
-npx wrangler r2 bucket create profai-uploads
-npm run db:migrate:local
-npm run dev                                      # http://localhost:3000
 ```
 
-## Tests
+Fill the following values inside `.dev.vars`:
+
+```env
+CONTENT_KEY=your_generated_key
+IP_HASH_SALT=your_random_string
+AI_GATEWAY_GOOGLE_API_KEY=your_google_api_key
+```
+
+Generate secure content key:
 
 ```bash
-npm test                  # unit tests (28 currently)
+openssl rand -base64 32
+```
+
+---
+
+## **Step 3: Install Dependencies**
+
+```bash
+npm install
+```
+
+---
+
+## **Step 4: Create Cloudflare Resources**
+
+### **Create D1 Database**
+
+```bash
+npx wrangler d1 create profai_db
+```
+
+### **Create KV Namespace**
+
+```bash
+npx wrangler kv namespace create profai_kv
+```
+
+### **Create R2 Bucket**
+
+```bash
+npx wrangler r2 bucket create profai-uploads
+```
+
+Paste generated IDs into `wrangler.jsonc`.
+
+---
+
+## **Step 5: Run Database Migrations**
+
+```bash
+npm run db:migrate:local
+```
+
+---
+
+## **Step 6: Start Development Server**
+
+```bash
+npm run dev
+```
+
+Open in browser:
+
+```text
+http://localhost:3000
+```
+
+---
+
+# **Running Tests**
+
+## **Run Unit Tests**
+
+```bash
+npm test
+```
+
+## **Run Type Checking**
+
+```bash
 npm run typecheck
+```
+
+## **Build Project**
+
+```bash
 npm run build
 ```
 
-## Deploy
+---
+
+# **Deployment Steps**
+
+## **Run Remote Database Migration**
 
 ```bash
 npm run db:migrate:remote
+```
+
+## **Deploy Application**
+
+```bash
 npm run deploy
 ```
 
-Set Worker secrets in production:
+---
+
+# **Production Secrets Setup**
+
+Set the following Worker secrets:
 
 ```bash
 wrangler secret put CONTENT_KEY
 wrangler secret put IP_HASH_SALT
 wrangler secret put AI_GATEWAY_GOOGLE_API_KEY
-wrangler secret put TURNSTILE_SECRET_KEY        # optional
+wrangler secret put TURNSTILE_SECRET_KEY
 ```
 
-## Architecture & specs
+---
 
-- Spec: [`docs/superpowers/specs/2026-04-26-profai-v2-cloudflare-rewrite-design.md`](docs/superpowers/specs/2026-04-26-profai-v2-cloudflare-rewrite-design.md)
-- Plan: [`docs/superpowers/plans/2026-04-26-profai-v2-cloudflare-rewrite.md`](docs/superpowers/plans/2026-04-26-profai-v2-cloudflare-rewrite.md)
-- Legacy v1 prompt history is preserved at `lib/ai/prompts/legacy/` for reference.
+# **Project Architecture**
 
-## Notes / known caveats
+The application follows a cloud-native serverless architecture using Cloudflare services:
 
-- **vinext is experimental** (Cloudflare-built Next.js reimplementation, ~94% of Next 16 surface). The fallback path is documented in the spec — if vinext blocks production, swap to Vite + React SPA + a separate Hono Worker; business logic in `lib/` is unaffected.
-- **Workers Rate Limiting API only supports 10s and 60s windows** — limits are tuned to 60s buckets (signup 2/min, login 10/min, chat 60/min, upload 6/min, PDF 2/min).
-- **Tailwind is pinned to v3** — v4 changed the PostCSS pipeline incompatibly with vinext at this time.
-- **Workers Browser Rendering** powers PDF export; first-time render is slower than cached, hence the R2 cache.
+* Frontend handled using React + Vinext
+* Backend APIs served through Cloudflare Workers
+* D1 database for structured data storage
+* R2 bucket for file and media storage
+* AI services integrated using Cloudflare AI and Google Gemini
+* Browser Rendering API for PDF generation
+
+---
+
+# **Known Limitations**
+
+* Vinext framework is currently experimental
+* Tailwind CSS v4 is not fully compatible with Vinext
+* Initial PDF rendering may take longer due to browser rendering initialization
+* Workers Rate Limiting API supports only fixed time windows
+
+---
+
+# **Conclusion**
+
+ProfAI v2 demonstrates the implementation of a modern AI-powered educational platform using serverless cloud technologies. The project combines AI tutoring, secure authentication, cloud storage, progress analytics, and PDF reporting into a scalable and interactive learning solution.
